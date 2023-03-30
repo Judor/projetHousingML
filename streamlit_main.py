@@ -45,7 +45,7 @@ col1.write("""
 col2.write("")
 
 # Load ML MODEL results
-if navigation == "Model Overview":
+if navigation == "XGBoost":
     col1, col2, col3, col4 = st.columns(4)
     mape, r2, mae, rmse = 0.1, 0.98, 0.2, 0.3
     col1.metric(label="MAPE", value=round(mape, 3),
