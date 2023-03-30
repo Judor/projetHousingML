@@ -11,7 +11,6 @@ css_content = read_css_file("app/style.css")
 st.markdown(f'<style>{css_content}</style>', unsafe_allow_html=True)
 
 # Load the inputs for the dashboard
-inputs = load_inputs()
 
 # Load the light logo image
 logo_image_light = Image.open("assets/hetic.png")
@@ -22,8 +21,9 @@ logo_base64_light = convert_image_to_base64(logo_image_light)
 # Display the light logo in the sidebar
 display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
-st.sidebar.title("Choose your model")
-navigation = st.sidebar.radio("Model", ["XGBoost", "Random Forest", "SVR", "Linea Regression"])
+st.sidebar.title("Navigation")
+navigation = st.sidebar.radio("Select",
+                              ["Features", "Models", "Prediction"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
@@ -45,11 +45,25 @@ st.write("""
 col2.write("")
 
 # Load ML MODEL results
-if navigation == "XGBoost":
-    st.write('')
-    st.write('')
-    col1, col2, col3, col4 = st.columns(4)
-    mape, r2, mae, rmse = 0.1, 0.98, 0.2, 0.3
+if navigation == "Models":
+    st.title("Models")
+    genre = st.radio(
+        "Please select a Model",
+        ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
+    if genre == 'XGBoost':
+        model = 'xgboost'
+    elif genre == 'Linear Regression':
+        model = 'linear_regression'
+    elif genre == 'SVR':
+        model = 'svr'
+    elif genre == 'Random Forest':
+        model = 'random_forest'
+    else:
+        model = 'xgboost'
+    st.write(genre)
+    col1, col2, col3, col4, col5 = st.columns(5)
+    # TODO load model function
+    model, features, mae, rmse, r2, mape = load_model(model)
     col1.metric(label="MAPE", value=round(mape, 3),
                 help="MAPE of the model", delta_color='off')
     col2.metric(label="R2", value=round(r2, 3),
@@ -58,3 +72,30 @@ if navigation == "XGBoost":
                 help="MAE of the model", delta_color='off')
     col4.metric(label="RMSE", value=round(rmse, 3),
                 help="RMSE of the model", delta_color='off')
+    col5.metric(label="Features", value=round(rmse, 3),
+                help="RMSE of the model", delta_color='off')
+
+if navigation == "Prediction":
+    genre = st.radio(
+        "Please select a Model",
+        ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
+    if genre == 'XGBoost':
+        model = 'xgboost'
+    elif genre == 'Linear Regression':
+        model = 'linear_regression'
+    elif genre == 'SVR':
+        model = 'svr'
+    elif genre == 'Random Forest':
+        model = 'random_forest'
+    else:
+        model = 'xgboost'
+    model, features, mae, rmse, r2, mape = load_model(model)
+    input = {}
+    for feature in features:
+        type, model_element_list, full_element_list = featureTransformation(feature)
+        if type == "categorical":
+            input.update({feature: st.selectbox(feature, full_element_list)})
+        elif type == "numerical":
+            input.update({feature: st.number_input(feature)})
+
+    prediction = estimate_house_price(features, model, input)
