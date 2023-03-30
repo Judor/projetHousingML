@@ -22,7 +22,7 @@ logo_base64_light = convert_image_to_base64(logo_image_light)
 # Display the light logo in the sidebar
 display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
-st.sidebar.title("Navigation")
+st.sidebar.title("Choose your model")
 navigation = st.sidebar.radio("Model", ["XGBoost", "Random Forest", "SVR", "Linea Regression"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
