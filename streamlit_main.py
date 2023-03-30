@@ -36,6 +36,14 @@ edit_button_container = st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
+col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
+col1.write('')
+col1.title("House Price Prediction Model")
+col1.write('')
+col1.write("""
+    ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
+col2.write("")
+
 # Load ML MODEL results
 if navigation == "Model Overview":
     col1, col2, col3, col4 = st.columns(4)
