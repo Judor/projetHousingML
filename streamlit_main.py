@@ -23,7 +23,7 @@ display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
 st.sidebar.title("Navigation")
 navigation = st.sidebar.radio("Select",
-                              ["Features", "Models", "Prediction"])
+                              ["Overview", "Models", "Prediction"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
@@ -35,18 +35,19 @@ edit_button_container = st.sidebar.markdown(
     '<div id="edit-button-container"></div>',
     unsafe_allow_html=True
 )
-
-col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
-col1.write('')
-col1.title("House Price Prediction Model")
-col1.write('')
-st.write("""
-    ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
-col2.write("")
+if navigation == "Overview":
+    col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
+    col1.write('')
+    col1.title("House Price Prediction Model")
+    col1.write('')
+    st.write("""
+        ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
+    col2.write("")
 
 # Load ML MODEL results
 if navigation == "Models":
-    st.title("Models")
+    st.write("### Models")
+    st.write(" ")
     genre = st.radio(
         "Please select a Model",
         ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
@@ -64,13 +65,13 @@ if navigation == "Models":
     col1, col2, col3, col4, col5 = st.columns(5)
     # TODO load model function
     model, features, mae, rmse, r2, mape = load_model(model)
-    col1.metric(label="MAPE", value=str(round(mape, 2))+" %",
+    col1.metric(label="MAPE", value=str(round(mape, 2)) + " %",
                 help="MAPE of the model", delta_color='off')
     col2.metric(label="R2", value=round(r2, 2),
                 help="R2 of the model", delta_color='off')
-    col3.metric(label="MAE", value=str(round(mae, 2))+str(" $"),
+    col3.metric(label="MAE", value=str(round(mae, 2)) + str(" $"),
                 help="MAE of the model", delta_color='off')
-    col4.metric(label="RMSE", value=str(round(rmse, 2))+str(" $"),
+    col4.metric(label="RMSE", value=str(round(rmse, 2)) + str(" $"),
                 help="RMSE of the model", delta_color='off')
     col5.metric(label="Features", value=len(features),
                 help="Number of features", delta_color='off')

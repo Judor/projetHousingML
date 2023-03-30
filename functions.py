@@ -493,16 +493,17 @@ def featureTransformation(feature):
                 ['Normal', 'Normal Sale'],
                 ['Abnorml', 'Abnormal Sale - trade, foreclosure, short sale'],
                 ['AdjLand', 'Adjoining Land Purchase'],
-                ['Alloca', 'Allocation - two linked properties with separate deeds, typically condo with a garage unit'],
+                ['Alloca',
+                 'Allocation - two linked properties with separate deeds, typically condo with a garage unit'],
                 ['Family', 'Sale between family members'],
                 ['Partial', 'Home was not completed when last assessed (associated with New Homes)']
             ]
         }
         model_element_list = []
         full_element_list = []
-        for i in range(0,len(dict[feature])):
+        for i in range(0, len(dict[feature])):
             model_element_list.append(dict[feature][i][0])
             full_element_list.append(dict[feature][i][1])
-        return "categorical",model_element_list, full_element_list
-    except BaseException :
-        return "numerical",[], []
+        return "categorical", model_element_list, full_element_list
+    except BaseException:
+        return "numerical", [], []
