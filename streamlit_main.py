@@ -40,7 +40,7 @@ col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
 col1.write('')
 col1.title("House Price Prediction Model")
 col1.write('')
-col1.write("""
+st.write("""
     ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
 col2.write("")
 
@@ -52,10 +52,9 @@ if navigation == "XGBoost":
     mape, r2, mae, rmse = 0.1, 0.98, 0.2, 0.3
     col1.metric(label="MAPE", value=round(mape, 3),
                 help="MAPE of the model", delta_color='off')
-
     col2.metric(label="R2", value=round(r2, 3),
-                help="MAPE of the model", delta_color='off')
+                help="R2 of the model", delta_color='off')
     col3.metric(label="MAE", value=round(mae, 3),
-                help="MAPE of the model", delta_color='off')
+                help="MAE of the model", delta_color='off')
     col4.metric(label="RMSE", value=round(rmse, 3),
-                help="MAPE of the model", delta_color='off')
+                help="RMSE of the model", delta_color='off')
