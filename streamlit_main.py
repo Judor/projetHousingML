@@ -81,7 +81,7 @@ if navigation == "Models":
                 help="Number of features", delta_color='off')
 
 if navigation == "Prediction":
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     genre = st.radio(
         "Please select a Model",
         ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
@@ -97,7 +97,7 @@ if navigation == "Prediction":
         model = 'xgboost'
     model, features, mae, rmse, r2, mape = load_model(model)
     input = {}
-    col_to_write_cycle = cycle([col1, col2, col3])
+    col_to_write_cycle = cycle([col1, col2, col3, col4])
     for feature in features:
         col_to_write = next(col_to_write_cycle)
         type, model_element_list, full_element_list = featureTransformation(feature)
