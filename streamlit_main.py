@@ -64,16 +64,16 @@ if navigation == "Models":
     col1, col2, col3, col4, col5 = st.columns(5)
     # TODO load model function
     model, features, mae, rmse, r2, mape = load_model(model)
-    col1.metric(label="MAPE", value=round(mape, 3),
+    col1.metric(label="MAPE", value=str(round(mape, 2))+" %",
                 help="MAPE of the model", delta_color='off')
-    col2.metric(label="R2", value=round(r2, 3),
+    col2.metric(label="R2", value=round(r2, 2),
                 help="R2 of the model", delta_color='off')
-    col3.metric(label="MAE", value=round(mae, 3),
+    col3.metric(label="MAE", value=str(round(mae, 2))+str(" $"),
                 help="MAE of the model", delta_color='off')
-    col4.metric(label="RMSE", value=round(rmse, 3),
+    col4.metric(label="RMSE", value=str(round(rmse, 2))+str(" $"),
                 help="RMSE of the model", delta_color='off')
-    col5.metric(label="Features", value=round(rmse, 3),
-                help="RMSE of the model", delta_color='off')
+    col5.metric(label="Features", value=len(features),
+                help="Number of features", delta_color='off')
 
 if navigation == "Prediction":
     genre = st.radio(
