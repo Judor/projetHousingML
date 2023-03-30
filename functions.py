@@ -507,3 +507,42 @@ def featureTransformation(feature):
         return "categorical", model_element_list, full_element_list
     except BaseException:
         return "numerical", [], []
+
+
+def getGoodName(feature):
+    dict = {
+        "OverallQual": "Overall Quality",
+        "GrLivArea": "Living Area",
+        "ExterQual": "Exterior Quality",
+        "GarageCars": "Garage Cars Capacity",
+        "BsmtQual": "Basement Height Quality",
+        "GarageArea": "Garage Size in Square Feet",
+        "TotalBsmtSF": "Total Basement Surface Area ",
+        "1stFlrSF": "First Floor Surface Area ",
+        "ExterQual_TA": "Average Exterior Quality",
+        "KitchenQual": "Kitchen Quality",
+        "FullBath": "Number of Full Bathrooms",
+        "AgeOfHouse": "Age of House at Time of Sale",
+        "YearBuilt": "Original Construction Date",
+        "TotRmsAbvGrd": "Total Rooms",
+        "KitchenQual_TA": "Average Kitchen Quality",
+        "AgeOfRemodel": "Age of Remodel",
+        "YearRemodAdd": "Remodel Date ",
+        "Foundation_PConc": "Poured Concrete Foundation",
+        "FireplaceQu_None": "No Fireplace",
+        "Fireplaces": "Number of Fireplaces",
+        "FireplaceQu": "Fireplace Quality",
+        "ExterQual_Gd": "Good Exterior Quality",
+        "BsmtQual_TA": "Average Basement Height Quality",
+        "MasVnrArea": "Masonry Veneer Area ",
+        "Neighborhood_NridgHt": "Northridge Heights Neighborhood",
+        "BsmtFinType1_GLQ": "Good Living Quarters Basement Finish Type 1",
+        "GarageFinish_Unf": "Unfinished Garage Interior",
+        "HeatingQC": "Heating Quality and Condition",
+        "BsmtFinSF1": "Type 1 Finished Square Feet",
+        "FireplaceQu_Gd": "Good Fireplace Quality",
+        "SaleType_New": "Type of sale",
+        "SaleCondition_Partial": "Sale Cndition",
+        "GarageType_Detchd": "Detached Garage Type"
+    }
+    return dict[feature]
