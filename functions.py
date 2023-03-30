@@ -507,7 +507,3 @@ def featureTransformation(feature):
         return "categorical", model_element_list, full_element_list
     except BaseException:
         return "numerical", [], []
-
-
-def witch_column(currentCol):
-
