@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+html, body, [class*="css"] {
+    font-family: 'Poppins', sans-serif;
+}
+footer {
+
+	visibility: hidden;
+
+	}
+footer:after {
+	content:'Greenmetrics© 2023';
+	visibility: visible;
+	display: block;
+	position: relative;
+	#background-color: red;
+	padding: 5px;
+	top: 2px;
+}
+
+/* This line hide the main menu. Uncomment it to hide the menu. It is
+#MainMenu {visibility: hidden;}
+ */
+
+#edit-inputs-container .st-expanderNode {
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+}
