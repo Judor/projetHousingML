@@ -1,3 +1,5 @@
+from itertools import cycle
+
 import streamlit as st
 from functions import *
 from PIL import Image
@@ -79,7 +81,7 @@ if navigation == "Models":
                 help="Number of features", delta_color='off')
 
 if navigation == "Prediction":
-    col1,col2,col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     genre = st.radio(
         "Please select a Model",
         ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
@@ -95,22 +97,13 @@ if navigation == "Prediction":
         model = 'xgboost'
     model, features, mae, rmse, r2, mape = load_model(model)
     input = {}
-    colToWrite=col3
-    colString="col3"
+    col_to_write_cycle = cycle([col1, col2, col3])
     for feature in features:
-        if colString=="col1":
-            colToWrite=col2
-            colString="col2"
-        if colString=="col2":
-                colToWrite=col3
-                colString="col3"
-        if colString=="col3":
-                colToWrite=col1
-                colString="col1"
+        col_to_write = next(col_to_write_cycle)
         type, model_element_list, full_element_list = featureTransformation(feature)
         if type == "categorical":
-            input.update({feature: colToWrite.selectbox(feature, full_element_list)})
+            input.update({feature: col_to_write.selectbox(feature, full_element_list)})
         elif type == "numerical":
-            input.update({feature: colToWrite.number_input(feature)})
+            input.update({feature: col_to_write.number_input(feature)})
 
     prediction = estimate_house_price(features, model, input)
