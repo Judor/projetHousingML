@@ -98,14 +98,13 @@ if navigation == "Prediction":
     colToWrite=col3
     colString="col3"
     for feature in features:
-        match colString:
-            case "col1":
-                colToWrite=col2
-                colString="col2"
-            case "col2":
+        if colString=="col1":
+            colToWrite=col2
+            colString="col2"
+        if colString=="col2":
                 colToWrite=col3
                 colString="col3"
-            case "col3":
+        if colString=="col3":
                 colToWrite=col1
                 colString="col1"
         type, model_element_list, full_element_list = featureTransformation(feature)
