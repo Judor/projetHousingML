@@ -1,7 +1,8 @@
 import streamlit as st
 from functions import *
+from PIL import Image
 
-#TODO SIDEBAR
+# TODO SIDEBAR
 # Set the page configuration with a custom title, icon, and layout
 st.set_page_config(page_title='Housing Project Groupe 11', page_icon=':bar_chart:', layout='wide')
 
@@ -13,14 +14,13 @@ st.markdown(f'<style>{css_content}</style>', unsafe_allow_html=True)
 inputs = load_inputs()
 
 # Load the light logo image
-logo_image_light = Image.open("assets/logoGMAds_light.png")
+logo_image_light = Image.open("assets/hetic.png")
 
 # Convert the light logo image to a base64 string
 logo_base64_light = convert_image_to_base64(logo_image_light)
 
 # Display the light logo in the sidebar
 display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
-
 
 st.sidebar.title("Navigation")
 navigation = st.sidebar.radio("Go to", ["Overview", "Campaign Performance Analysis", "Domains"])
@@ -36,7 +36,4 @@ edit_button_container = st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-
-
-#TODO MAIN
-
+# TODO MAIN
