@@ -79,6 +79,7 @@ if navigation == "Models":
                 help="Number of features", delta_color='off')
 
 if navigation == "Prediction":
+    col1,col2,col3 = st.columns(3)
     genre = st.radio(
         "Please select a Model",
         ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
@@ -94,11 +95,23 @@ if navigation == "Prediction":
         model = 'xgboost'
     model, features, mae, rmse, r2, mape = load_model(model)
     input = {}
+    colToWrite=col3
+    colString="col3"
     for feature in features:
+        match colString:
+            case "col1":
+                colToWrite=col2
+                colString="col2"
+            case "col2":
+                colToWrite=col3
+                colString="col3"
+            case "col3":
+                colToWrite=col1
+                colString="col1"
         type, model_element_list, full_element_list = featureTransformation(feature)
         if type == "categorical":
-            input.update({feature: st.selectbox(feature, full_element_list)})
+            input.update({feature: colToWrite.selectbox(feature, full_element_list)})
         elif type == "numerical":
-            input.update({feature: st.number_input(feature)})
+            input.update({feature: colToWrite.number_input(feature)})
 
     prediction = estimate_house_price(features, model, input)
