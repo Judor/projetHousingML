@@ -104,6 +104,6 @@ if navigation == "Prediction":
         if type == "categorical":
             input.update({feature: col_to_write.selectbox(feature, full_element_list)})
         elif type == "numerical":
-            input.update({feature: col_to_write.number_input(feature)})
+            input.update({feature: col_to_write.number_input(feature,1)})
 
     prediction = estimate_house_price(features, model, input)
