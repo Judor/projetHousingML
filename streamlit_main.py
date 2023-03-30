@@ -23,7 +23,7 @@ logo_base64_light = convert_image_to_base64(logo_image_light)
 display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
 st.sidebar.title("Navigation")
-navigation = st.sidebar.radio("Go to", ["Overview", "Campaign Performance Analysis", "Domains"])
+navigation = st.sidebar.radio("Model", ["XGBoost", "Random Forest", "SVR", "Linea Regression"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
@@ -36,4 +36,16 @@ edit_button_container = st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# TODO MAIN
+# Load ML MODEL results
+if navigation == "Model Overview":
+    col1, col2, col3, col4 = st.columns(4)
+    mape, r2, mae, rmse = 0.1, 0.98, 0.2, 0.3
+    col1.metric(label="MAPE", value=round(mape, 3),
+                help="MAPE of the model", delta_color='off')
+
+    col2.metric(label="R2", value=round(r2, 3),
+                help="MAPE of the model", delta_color='off')
+    col3.metric(label="MAE", value=round(mae, 3),
+                help="MAPE of the model", delta_color='off')
+    col4.metric(label="RMSE", value=round(rmse, 3),
+                help="MAPE of the model", delta_color='off')
