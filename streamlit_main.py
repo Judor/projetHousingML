@@ -61,6 +61,8 @@ if navigation == "Models":
         model = 'random_forest'
     else:
         model = 'xgboost'
+    st.write(" ")
+    st.write("")
     st.write(genre)
     col1, col2, col3, col4, col5 = st.columns(5)
     # TODO load model function
