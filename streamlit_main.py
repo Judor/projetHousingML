@@ -53,11 +53,11 @@ if navigation == "Overview & Dataset Discovery":
     col1, col2, col3, col4 = st.columns(4)
     col1.metric(label="Number of observations", value=1460,
                 help="Number of observations in the dataset", delta_color='off')
-    col2.metric(label="Number of features", value=80,
+    col2.metric(label="Number of features", value=81,
                 help="Number of features in the dataset", delta_color='off')
     col3.metric(label="Number of categorical features", value=43,
                 help="Number of categorical features in the dataset", delta_color='off')
-    col4.metric(label="Number of numerical features", value=37,
+    col4.metric(label="Number of numerical features", value=38,
                 help="Number of numerical features in the dataset", delta_color='off')
     st.write(" ")
     st.write("---")
@@ -83,7 +83,7 @@ if navigation == "Overview & Dataset Discovery":
     # plot the GrLivArea
     st.write("---")
     st.write(" ")
-    st.write("### Living Area Size")
+    st.write("### Living & Garage Area Size")
     st.write(" ")
     col1, col2 = st.columns(2)
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -92,6 +92,12 @@ if navigation == "Overview & Dataset Discovery":
     ax.set_xlabel('Living Area Size')
     ax.set_ylabel('Count')
     col1.pyplot(fig)
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.histplot(df['GarageArea'], ax=ax, bins=20, kde=True)
+    ax.set_title('Garage Area Size Distribution')
+    ax.set_xlabel('Garage Area Size')
+    ax.set_ylabel('Count')
+    col2.pyplot(fig)
 
 # Load ML MODEL results
 if navigation == "Model Analysis":
