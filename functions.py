@@ -549,7 +549,7 @@ def getGoodName(feature):
 
 def input_to_dataframe(input_dict):
     df =pd.DataFrame(input_dict, index=[0])
-    df['OverallQual'] = df['OverallQual'].astype('string')
+    df['OverallQual'] = df['OverallQual'].astype('category')
     df["GrLivArea"] = df["GrLivArea"].astype('int64')
     df["GarageCars"] = df["GarageCars"].astype('int64')
     df["GarageArea"] = df["GarageArea"].astype('int64')
