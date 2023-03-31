@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from functions import *
 from PIL import Image
+import seaborn as sns
 
 # TODO SIDEBAR
 # Set the page configuration with a custom title, icon, and layout
@@ -61,6 +62,24 @@ if navigation == "Overview & Dataset Discovery":
     st.write(" ")
     st.write("---")
     st.write(" ")
+    st.write("### Price Distribution")
+    st.write(" ")
+    col1, col2 = st.columns(2)
+    df = load_initial_df()
+    # plot the SalePrice
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.distplot(df['SalePrice'], ax=ax)
+    ax.set_title('SalePrice Distribution')
+    ax.set_xlabel('SalePrice')
+    ax.set_ylabel('Density')
+    col1.pyplot(fig)
+    #plot the YearBuilt
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.distplot(df['YearBuilt'], ax=ax)
+    ax.set_title('YearBuilt Distribution')
+    ax.set_xlabel('YearBuilt')
+    ax.set_ylabel('Density')
+    col2.pyplot(fig)
 
 # Load ML MODEL results
 if navigation == "Model Analysis":

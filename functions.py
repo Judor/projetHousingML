@@ -559,3 +559,7 @@ def input_to_dataframe(input_dict):
     df[int_cols] = df[int_cols].astype('int64')
 
     return df
+
+
+def load_initial_df():
+    return pd.read_csv('assets/initial_df.csv')
