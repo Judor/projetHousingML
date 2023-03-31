@@ -47,7 +47,8 @@ if navigation == "Overview & Dataset Discovery":
     col2.write("")
     st.write("---")
     st.write(" ")
-    st.write("Dataset Discovery")
+    st.write("### Dataset Discovery")
+    st.write(" ")
     col1, col2, col3, col4 = st.columns(4)
     col1.metric(label="Number of observations", value=1460,
                 help="Number of observations in the dataset", delta_color='off')
@@ -57,6 +58,8 @@ if navigation == "Overview & Dataset Discovery":
                 help="Number of categorical features in the dataset", delta_color='off')
     col4.metric(label="Number of numerical features", value=37,
                 help="Number of numerical features in the dataset", delta_color='off')
+    st.write(" ")
+    st.write("---")
     st.write(" ")
 
 # Load ML MODEL results
