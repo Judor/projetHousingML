@@ -548,6 +548,19 @@ def getGoodName(feature):
 
 
 def input_to_dataframe(input_dict):
-    return pd.DataFrame(input_dict, index=[0])
+    df =pd.DataFrame(input_dict, index=[0])
+    df['OverallQual'] = df['OverallQual'].astype('string')
+    df["GrLivArea"] = df["GrLivArea"].astype('int64')
+    df["GarageCars"] = df["GarageCars"].astype('int64')
+    df["GarageArea"] = df["GarageArea"].astype('int64')
+    df["TotalBsmtSF"] = df["TotalBsmtSF"].astype('int64')
+    df["1stFlrSF"] = df["1stFlrSF"].astype('int64')
+    df["FullBath"] = df["FullBath"].astype('int64')
+    df["AgeOfHouse"] = df["AgeOfHouse"].astype('int64')
+    df["YearBuilt"] = df["YearBuilt"].astype('int64')
+    df["TotRmsAbvGrd"] = df["TotRmsAbvGrd"].astype('int64')
+    return df
+
+
 
 
