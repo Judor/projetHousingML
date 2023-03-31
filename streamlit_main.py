@@ -68,14 +68,14 @@ if navigation == "Overview & Dataset Discovery":
     df = load_initial_df()
     # plot the SalePrice
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.distplot(df['SalePrice'], ax=ax,bins=5)
+    sns.distplot(df['SalePrice'], ax=ax,bins=20)
     ax.set_title('SalePrice Distribution')
     ax.set_xlabel('SalePrice')
     ax.set_ylabel('Count')
     col1.pyplot(fig)
     #plot the YearBuilt
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.distplot(df['YearBuilt'], ax=ax,bins=5)
+    sns.distplot(df['YearBuilt'], ax=ax,bins=20)
     ax.set_title('YearBuilt Distribution')
     ax.set_xlabel('YearBuilt')
     ax.set_ylabel('Count')
