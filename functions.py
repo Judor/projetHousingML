@@ -89,7 +89,6 @@ def estimate_house_price(model, data):
     return price
 
 
-
 def featureTransformation(feature):
     try:
         dict = {
@@ -560,6 +559,3 @@ def input_to_dataframe(input_dict):
     df[int_cols] = df[int_cols].astype('int64')
 
     return df
-
-
-

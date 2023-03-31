@@ -25,7 +25,7 @@ display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
 st.sidebar.title("Navigation")
 navigation = st.sidebar.radio("Select",
-                              ["Overview", "Model Analysis", "Prediction"])
+                              ["Overview & Dataset Discovery", "Model Analysis", "Prediction"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
@@ -37,7 +37,7 @@ edit_button_container = st.sidebar.markdown(
     '<div id="edit-button-container"></div>',
     unsafe_allow_html=True
 )
-if navigation == "Overview":
+if navigation == "Overview & Dataset Discovery":
     col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
     col1.write('')
     col1.title("House Price Prediction Model")
@@ -45,6 +45,19 @@ if navigation == "Overview":
     st.write("""
         ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
     col2.write("")
+    st.write("---")
+    st.write(" ")
+    st.write("Dataset Discovery")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric(label="Number of observations", value=1460,
+                help="Number of observations in the dataset", delta_color='off')
+    col2.metric(label="Number of features", value=80,
+                help="Number of features in the dataset", delta_color='off')
+    col3.metric(label="Number of categorical features", value=43,
+                help="Number of categorical features in the dataset", delta_color='off')
+    col4.metric(label="Number of numerical features", value=37,
+                help="Number of numerical features in the dataset", delta_color='off')
+    st.write(" ")
 
 # Load ML MODEL results
 if navigation == "Model Analysis":
