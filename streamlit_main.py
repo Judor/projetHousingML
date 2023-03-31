@@ -125,9 +125,9 @@ if navigation == "Prediction":
         col_to_write = next(col_to_write_cycle)
         type, model_element_list, full_element_list = featureTransformation(feature)
         if type == "categorical":
-            input.update({feature: col_to_write.selectbox(getGoodName(feature), full_element_list)})
+            input.update({str(feature): str(col_to_write.selectbox(getGoodName(feature), full_element_list))})
         elif type == "numerical":
-            input.update({feature: col_to_write.number_input(getGoodName(feature), 2018)})
+            input.update({str(feature): str(col_to_write.number_input(getGoodName(feature), 2018))})
     if st.button("Predict"):
         input_df = input_to_dataframe(input)
         prediction = estimate_house_price(model, input_df)
