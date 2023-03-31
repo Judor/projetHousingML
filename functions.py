@@ -548,18 +548,19 @@ def getGoodName(feature):
 
 
 def input_to_dataframe(input_dict):
-    df =pd.DataFrame(input_dict, index=[0])
-    df['OverallQual'] = df['OverallQual'].astype('category')
-    df["GrLivArea"] = df["GrLivArea"].astype('int64')
-    df["GarageCars"] = df["GarageCars"].astype('int64')
-    df["GarageArea"] = df["GarageArea"].astype('int64')
-    df["TotalBsmtSF"] = df["TotalBsmtSF"].astype('int64')
-    df["1stFlrSF"] = df["1stFlrSF"].astype('int64')
-    df["FullBath"] = df["FullBath"].astype('int64')
-    df["AgeOfHouse"] = df["AgeOfHouse"].astype('int64')
-    df["YearBuilt"] = df["YearBuilt"].astype('int64')
-    df["TotRmsAbvGrd"] = df["TotRmsAbvGrd"].astype('int64')
+    # Map string values of OverallQual to their corresponding integer values
+    qual_map = {'Very Poor': 1, 'Poor': 2, 'Fair': 3, 'Below Average': 4, 'Average': 5,
+                'Above Average': 6, 'Good': 7, 'Very Good': 8, 'Excellent': 9, 'Very Excellent': 10}
+    input_dict['OverallQual'] = qual_map[input_dict['OverallQual']]
+
+    df = pd.DataFrame(input_dict, index=[0])
+    # Convert columns to int64 data type
+    int_cols = ["GrLivArea", "GarageCars", "GarageArea", "TotalBsmtSF", "1stFlrSF",
+                "FullBath", "AgeOfHouse", "YearBuilt", "TotRmsAbvGrd"]
+    df[int_cols] = df[int_cols].astype('int64')
+
     return df
+
 
 
 
