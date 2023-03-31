@@ -129,7 +129,7 @@ if navigation == "Prediction":
         elif type == "numerical":
             input.update({feature: col_to_write.number_input(getGoodName(feature), 2018)})
     if st.button("Predict"):
-        input_df = input_to_dataframe
+        input_df = input_to_dataframe(input)
         prediction = estimate_house_price(model, input_df)
         st.write("### Estimated Price :" + str(round(prediction, 2)) + " $")
 
