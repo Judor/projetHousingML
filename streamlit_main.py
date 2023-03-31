@@ -68,25 +68,26 @@ if navigation == "Overview & Dataset Discovery":
     df = load_initial_df()
     # plot the SalePrice
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.distplot(df['SalePrice'], ax=ax,bins=20)
+    sns.histplot(df['SalePrice'], ax=ax, bins=20)
     ax.set_title('SalePrice Distribution')
     ax.set_xlabel('SalePrice')
     ax.set_ylabel('Count')
     col1.pyplot(fig)
-    #plot the YearBuilt
+    # plot the YearBuilt
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.distplot(df['YearBuilt'], ax=ax,bins=20)
+    sns.histplot(df['YearBuilt'], ax=ax, bins=20)
     ax.set_title('YearBuilt Distribution')
     ax.set_xlabel('YearBuilt')
     ax.set_ylabel('Count')
     col2.pyplot(fig)
-    #plot the GrLivArea
+    # plot the GrLivArea
+    col1, col2 = st.columns(2)
     st.write("---")
     st.write(" ")
     st.write("### Living Area Size")
     st.write(" ")
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.distplot(df['GrLivArea'], ax=ax,bins=20)
+    sns.histplot(df['GrLivArea'], ax=ax, bins=20)
     ax.set_title('GrLivArea Distribution')
     ax.set_xlabel('GrLivArea')
     ax.set_ylabel('Count')
