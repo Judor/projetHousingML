@@ -111,7 +111,8 @@ if navigation == "Model Analysis":
     st.write("### Model's SHAP values")
     st.write(" ")
     image_path = "assets/shap.png"
-    st.image(image_path, caption="Shap Values")
+    col0,col1,col2 = st.columns([1,3,1])
+    col1.image(image_path, caption="Shap Values")
 
 
 
