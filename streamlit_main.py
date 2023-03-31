@@ -80,6 +80,17 @@ if navigation == "Overview & Dataset Discovery":
     ax.set_xlabel('YearBuilt')
     ax.set_ylabel('Count')
     col2.pyplot(fig)
+    #plot the GrLivArea
+    st.write("---")
+    st.write(" ")
+    st.write("### Living Area Size")
+    st.write(" ")
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.distplot(df['GrLivArea'], ax=ax,bins=20)
+    ax.set_title('GrLivArea Distribution')
+    ax.set_xlabel('GrLivArea')
+    ax.set_ylabel('Count')
+    col1.pyplot(fig)
 
 # Load ML MODEL results
 if navigation == "Model Analysis":
