@@ -118,7 +118,7 @@ if navigation == "Prediction":
     st.write("### Prediction based on the XGBoost model")
     col1, col2 = st.columns(2)
     model = 'xgboost'
-    model, features, mae, rmse, r2, mape = load_model(model)
+    model, features, mae, rmse, r2, mape, X_train, X_test, y_train, y_test = load_model(model)
     input = {}
     col_to_write_cycle = cycle([col1, col2])
     for feature in features:
