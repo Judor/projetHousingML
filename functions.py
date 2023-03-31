@@ -81,7 +81,7 @@ def load_model(model_name):
     r2 = r2_score(y_test, y_pred)
     mape = mean_absolute_percentage_error(y_test, y_pred)
 
-    return model, features, mae, rmse, r2, mape
+    return model, features, mae, rmse, r2, mape, X_train, X_test, y_train, y_test
 
 
 def estimate_house_price(features, model, data):

@@ -1,5 +1,5 @@
 from itertools import cycle
-
+import matplotlib.pyplot as plt
 import streamlit as st
 from functions import *
 from PIL import Image
@@ -47,28 +47,14 @@ if navigation == "Overview":
     col2.write("")
 
 # Load ML MODEL results
-if navigation == "Models":
-    st.write("### Models")
+if navigation == "Model Analysis":
+    st.write("### XGBoost Model Analysis")
     st.write(" ")
-    genre = st.radio(
-        "Please select a Model",
-        ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
-    if genre == 'XGBoost':
-        model = 'xgboost'
-    elif genre == 'Linear Regression':
-        model = 'linear_regression'
-    elif genre == 'SVR':
-        model = 'svr'
-    elif genre == 'Random Forest':
-        model = 'random_forest'
-    else:
-        model = 'xgboost'
+    model = 'xgboost'
     st.write(" ")
     st.write("")
-    st.write(genre)
     col1, col2, col3, col4, col5 = st.columns(5)
-    # TODO load model function
-    model, features, mae, rmse, r2, mape = load_model(model)
+    model, features, mae, rmse, r2, mape,X_train,X_test,y_train,y_test = load_model(model)
     col1.metric(label="MAPE", value=str(round(mape, 2)) + " %",
                 help="MAPE of the model", delta_color='off')
     col2.metric(label="R2", value=round(r2, 2),
@@ -79,22 +65,54 @@ if navigation == "Models":
                 help="RMSE of the model", delta_color='off')
     col5.metric(label="Features", value=len(features),
                 help="Number of features", delta_color='off')
+    st.markdown('---')
+    st.write("### Model's Residuals")
+    y_train_pred = model.predict(X_train)
+    y_pred = model.predict(X_test)
+    # Calculate residuals on training and validation sets
+    residuals_train = y_train - y_train_pred
+    residuals_valid = y_test - y_pred
+
+    # Plot the model and residuals for the training and validation sets
+    fig1, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 5))
+
+    ax1.scatter(y_train, y_train_pred, s=20, alpha=0.5)
+    ax1.plot([min(y_train), max(y_train)], [min(y_train), max(y_train)], '--r', linewidth=2)
+    ax1.set_xlabel('Actual values')
+    ax1.set_ylabel('Predicted values')
+    ax1.set_title(f'Training set (R2={r2_score(y_train, y_train_pred):.2f})')
+
+    ax2.scatter(y_test, y_pred, s=20, alpha=0.5)
+    ax2.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], '--r', linewidth=2)
+    ax2.set_xlabel('Actual values')
+    ax2.set_ylabel('Predicted values')
+    ax2.set_title(f'Validation set (R2={r2_score(y_test, y_pred):.2f})')
+
+    fig1.tight_layout()
+    st.pyplot(fig1)
+
+    fig2, (ax3, ax4) = plt.subplots(ncols=2, figsize=(10, 5))
+
+    ax3.scatter(y_train_pred, residuals_train, s=20, alpha=0.5)
+    ax3.axhline(y=0, color='r', linestyle='--', linewidth=2)
+    ax3.set_xlabel('Predicted values')
+    ax3.set_ylabel('Residuals')
+    ax3.set_title('Training set')
+
+    ax4.scatter(y_pred, residuals_valid, s=20, alpha=0.5)
+    ax4.axhline(y=0, color='r', linestyle='--', linewidth=2)
+    ax4.set_xlabel('Predicted values')
+    ax4.set_ylabel('Residuals')
+    ax4.set_title('Validation set')
+
+    fig2.tight_layout()
+    st.pyplot(fig2)
+
 
 if navigation == "Prediction":
+    st.write("### Prediction based on the XGBoost model")
     col1, col2 = st.columns(2)
-    genre = st.radio(
-        "Please select a Model",
-        ('XGBoost', 'Linear Regression', 'SVR', 'Random Forest'))
-    if genre == 'XGBoost':
-        model = 'xgboost'
-    elif genre == 'Linear Regression':
-        model = 'linear_regression'
-    elif genre == 'SVR':
-        model = 'svr'
-    elif genre == 'Random Forest':
-        model = 'random_forest'
-    else:
-        model = 'xgboost'
+    model = 'xgboost'
     model, features, mae, rmse, r2, mape = load_model(model)
     input = {}
     col_to_write_cycle = cycle([col1, col2])
