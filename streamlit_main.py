@@ -112,15 +112,17 @@ if navigation == "Model Analysis":
     st.write("### Model's SHAP values")
     st.write(" ")
     # copier les noms de colonne
-    col_names = X_test.columns.tolist()
-    # réattribuer les noms de colonne
-    X_test_scaled2 = pd.DataFrame(X_test, columns=col_names)
-    # Fits the explainer
-    explainer = shap.Explainer(model.predict, X_test_scaled2)
-    # Calculates the SHAP values - It takes some time
-    shap_values = explainer(X_test_scaled2)
+    col_names = X_test.columns
+    X_test_scaled = pd.DataFrame(X_test, columns=col_names)
 
-    shap.summary_plot(shap_values)
+    # Create the explainer and calculate SHAP values
+    explainer = shap.Explainer(model.predict, X_test_scaled)
+    shap_values = explainer(X_test_scaled)
+
+    # Create a SHAP summary plot and display it in Streamlit
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    shap.summary_plot(shap_values, show=False)
+    st.pyplot()
 
 if navigation == "Prediction":
     st.write("### Prediction based on the XGBoost model")
@@ -138,3 +140,6 @@ if navigation == "Prediction":
             input.update({feature: col_to_write.number_input(getGoodName(feature), 1)})
 
     prediction = estimate_house_price(features, model, input)
+
+    st.write("### Price :"+str(round(estimate_house_price(features, model, input), 2))+" $")
+
