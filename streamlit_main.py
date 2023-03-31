@@ -81,15 +81,15 @@ if navigation == "Overview & Dataset Discovery":
     ax.set_ylabel('Count')
     col2.pyplot(fig)
     # plot the GrLivArea
-    col1, col2 = st.columns(2)
     st.write("---")
     st.write(" ")
     st.write("### Living Area Size")
     st.write(" ")
+    col1, col2 = st.columns(2)
     fig, ax = plt.subplots(figsize=(10, 5))
     sns.histplot(df['GrLivArea'], ax=ax, bins=20, kde=True)
-    ax.set_title('GrLivArea Distribution')
-    ax.set_xlabel('GrLivArea')
+    ax.set_title('Living Area Size Distribution')
+    ax.set_xlabel('Living Area Size')
     ax.set_ylabel('Count')
     col1.pyplot(fig)
 
