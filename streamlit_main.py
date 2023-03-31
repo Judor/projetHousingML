@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from functions import *
 from PIL import Image
+import shap
 
 # TODO SIDEBAR
 # Set the page configuration with a custom title, icon, and layout
@@ -67,6 +68,7 @@ if navigation == "Model Analysis":
                 help="Number of features", delta_color='off')
     st.markdown('---')
     st.write("### Model's Residuals")
+    st.write(" ")
     col1, col2 = st.columns(2)
     y_train_pred = model.predict(X_train)
     y_pred = model.predict(X_test)
@@ -105,6 +107,20 @@ if navigation == "Model Analysis":
 
     fig2.tight_layout()
     col2.pyplot(fig2)
+    st.write(" ")
+    st.markdown('---')
+    st.write("### Model's SHAP values")
+    st.write(" ")
+    # copier les noms de colonne
+    col_names = X_test.columns.tolist()
+    # réattribuer les noms de colonne
+    X_test_scaled2 = pd.DataFrame(X_test, columns=col_names)
+    # Fits the explainer
+    explainer = shap.Explainer(model.predict, X_test_scaled2)
+    # Calculates the SHAP values - It takes some time
+    shap_values = explainer(X_test_scaled2)
+
+    shap.summary_plot(shap_values)
 
 if navigation == "Prediction":
     st.write("### Prediction based on the XGBoost model")
