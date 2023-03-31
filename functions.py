@@ -81,14 +81,13 @@ def load_model(model_name):
     r2 = r2_score(y_test, y_pred)
     mape = mean_absolute_percentage_error(y_test, y_pred)
 
-    return model, features, mae, rmse, r2, mape
+    return model, features, mae, rmse, r2, mape, X_train, X_test, y_train, y_test
 
 
-def estimate_house_price(features, model, data):
-    """
-    Estimate house price using the ml model selected
-    """
-    return True
+def estimate_house_price(model, data):
+    price = model.predict(data)
+    return price
+
 
 
 def featureTransformation(feature):
@@ -546,3 +545,9 @@ def getGoodName(feature):
         "GarageType_Detchd": "Detached Garage Type"
     }
     return dict[feature]
+
+
+def input_to_dataframe(input_dict):
+    return pd.DataFrame(input_dict, index=[0])
+
+
