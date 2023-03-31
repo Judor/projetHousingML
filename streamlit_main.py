@@ -25,7 +25,7 @@ display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
 st.sidebar.title("Navigation")
 navigation = st.sidebar.radio("Select",
-                              ["Overview", "Models", "Prediction"])
+                              ["Overview", "Model Analysis", "Prediction"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
