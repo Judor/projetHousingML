@@ -130,6 +130,6 @@ if navigation == "Prediction":
             input.update({str(feature): str(col_to_write.number_input(getGoodName(feature), 2018))})
     if st.button("Predict"):
         input_df = input_to_dataframe(input)
-        prediction = estimate_house_price(model, input_df)
+        prediction = estimate_house_price(model, input_df).values[0]
         st.write("### Estimated Price :" + str(round(prediction, 2)) + " $")
 
