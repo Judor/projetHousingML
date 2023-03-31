@@ -131,4 +131,4 @@ if navigation == "Prediction":
     if st.button("Predict"):
         input_df = input_to_dataframe(input)
         prediction = estimate_house_price(model, input_df)[0]
-        st.write("### Estimated Price :" + str(round(prediction, 2)) + " $")
+        st.write("### Estimated Price : " + str(round(human_format(prediction), 2)) + " $")
