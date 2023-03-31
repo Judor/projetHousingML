@@ -84,9 +84,10 @@ def load_model(model_name):
     return model, features, mae, rmse, r2, mape, X_train, X_test, y_train, y_test
 
 
-def estimate_house_price(features, model, data):
-    price = model.predict(data[features].values.reshape(1, -1))
+def estimate_house_price(model, data):
+    price = model.predict(data)
     return price
+
 
 
 def featureTransformation(feature):
@@ -544,5 +545,9 @@ def getGoodName(feature):
         "GarageType_Detchd": "Detached Garage Type"
     }
     return dict[feature]
+
+
+def input_to_dataframe(input_dict):
+    return pd.DataFrame(input_dict, index=[0])
 
 
