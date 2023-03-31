@@ -1,4 +1,3 @@
 scikit-learn
 xgboost
 matplotlib
-shap==0.40.0

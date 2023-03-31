@@ -85,9 +85,7 @@ def load_model(model_name):
 
 
 def estimate_house_price(features, model, data):
-    """
-    Estimate house price using the ml model selected
-    """
+    model.predict(data[features].values.reshape(1, -1))
     return True
 
 

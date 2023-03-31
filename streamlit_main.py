@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from functions import *
 from PIL import Image
-import shap
 
 # TODO SIDEBAR
 # Set the page configuration with a custom title, icon, and layout
@@ -111,18 +110,10 @@ if navigation == "Model Analysis":
     st.markdown('---')
     st.write("### Model's SHAP values")
     st.write(" ")
-    # copier les noms de colonne
-    col_names = X_test.columns
-    X_test_scaled = pd.DataFrame(X_test, columns=col_names)
+    image_path = "assets/shap.png"
+    st.image(image_path, caption="Shap Values", use_column_width=True)
 
-    # Create the explainer and calculate SHAP values
-    explainer = shap.Explainer(model.predict, X_test_scaled)
-    shap_values = explainer(X_test_scaled)
 
-    # Create a SHAP summary plot and display it in Streamlit
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    shap.summary_plot(shap_values, show=False)
-    st.pyplot()
 
 if navigation == "Prediction":
     st.write("### Prediction based on the XGBoost model")
@@ -141,5 +132,5 @@ if navigation == "Prediction":
 
     prediction = estimate_house_price(features, model, input)
 
-    st.write("### Price :"+str(round(estimate_house_price(features, model, input), 2))+" $")
+    st.write("### Estimated Price :"+str(round(estimate_house_price(features, model, input), 2))+" $")
 
