@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from functions import *
 from PIL import Image
+import seaborn as sns
 
 # TODO SIDEBAR
 # Set the page configuration with a custom title, icon, and layout
@@ -25,7 +26,7 @@ display_image_in_sidebar(logo_base64_light, width=300, margin_bottom=20)
 
 st.sidebar.title("Navigation")
 navigation = st.sidebar.radio("Select",
-                              ["Overview", "Model Analysis", "Prediction"])
+                              ["Overview & Dataset Discovery", "Model Analysis", "Prediction"])
 for i in range(30):
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
 # Check if 'edit_expander' exists in session_state, if not, set it to False
@@ -37,7 +38,7 @@ edit_button_container = st.sidebar.markdown(
     '<div id="edit-button-container"></div>',
     unsafe_allow_html=True
 )
-if navigation == "Overview":
+if navigation == "Overview & Dataset Discovery":
     col1, coLX, col2, col3 = st.columns([3.5, 0.5, 1, 0.6])
     col1.write('')
     col1.title("House Price Prediction Model")
@@ -45,6 +46,52 @@ if navigation == "Overview":
     st.write("""
         ###### This is a project for the HETIC's Data Science Master's Degree. We are Grégory Haton, Guillaume Lochon, Hugo Bacard, Anis Akeb & Sébastien Tadiello""")
     col2.write("")
+    st.write("---")
+    st.write(" ")
+    st.write("### Dataset Discovery")
+    st.write(" ")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric(label="Number of observations", value=1460,
+                help="Number of observations in the dataset", delta_color='off')
+    col2.metric(label="Number of features", value=80,
+                help="Number of features in the dataset", delta_color='off')
+    col3.metric(label="Number of categorical features", value=43,
+                help="Number of categorical features in the dataset", delta_color='off')
+    col4.metric(label="Number of numerical features", value=37,
+                help="Number of numerical features in the dataset", delta_color='off')
+    st.write(" ")
+    st.write("---")
+    st.write(" ")
+    st.write("### Price & Year Distribution")
+    st.write(" ")
+    col1, col2 = st.columns(2)
+    df = load_initial_df()
+    # plot the SalePrice
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.histplot(df['SalePrice'], ax=ax, bins=20, kde=True)
+    ax.set_title('SalePrice Distribution')
+    ax.set_xlabel('SalePrice')
+    ax.set_ylabel('Count')
+    col1.pyplot(fig)
+    # plot the YearBuilt
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.histplot(df['YearBuilt'], ax=ax, bins=20, kde=True)
+    ax.set_title('YearBuilt Distribution')
+    ax.set_xlabel('YearBuilt')
+    ax.set_ylabel('Count')
+    col2.pyplot(fig)
+    # plot the GrLivArea
+    col1, col2 = st.columns(2)
+    st.write("---")
+    st.write(" ")
+    st.write("### Living Area Size")
+    st.write(" ")
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.histplot(df['GrLivArea'], ax=ax, bins=20, kde=True)
+    ax.set_title('GrLivArea Distribution')
+    ax.set_xlabel('GrLivArea')
+    ax.set_ylabel('Count')
+    col1.pyplot(fig)
 
 # Load ML MODEL results
 if navigation == "Model Analysis":
@@ -125,11 +172,11 @@ if navigation == "Prediction":
         col_to_write = next(col_to_write_cycle)
         type, model_element_list, full_element_list = featureTransformation(feature)
         if type == "categorical":
-            input.update({feature: col_to_write.selectbox(getGoodName(feature), full_element_list)})
+            input.update({str(feature): str(col_to_write.selectbox(getGoodName(feature), full_element_list))})
         elif type == "numerical":
-            input.update({feature: col_to_write.number_input(getGoodName(feature), 1)})
-
-    input_df = input_to_dataframe
-    prediction = estimate_house_price(model,input_df)
-
-    st.write("### Estimated Price :" + str(round(estimate_house_price(features, model, input), 2)) + " $")
+            input.update({str(feature): str(col_to_write.number_input(getGoodName(feature), 0, 1000000))})
+    if st.button("Predict"):
+        input_df = input_to_dataframe(input)
+        prediction = round(estimate_house_price(model, input_df)[0], 0)
+        prediction = '{:,}'.format(prediction).replace(',', ' ')
+        st.write("### Estimated Price : " + prediction + " $")
