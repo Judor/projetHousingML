@@ -59,9 +59,9 @@ if navigation == "Model Analysis":
                 help="MAPE of the model", delta_color='off')
     col2.metric(label="R2", value=round(r2, 2),
                 help="R2 of the model", delta_color='off')
-    col3.metric(label="MAE", value=str(round(mae, 2)) + str(" $"),
+    col3.metric(label="MAE", value=str(round(mae, 1)) + str(" $"),
                 help="MAE of the model", delta_color='off')
-    col4.metric(label="RMSE", value=str(round(rmse, 2)) + str(" $"),
+    col4.metric(label="RMSE", value=str(round(rmse, 1)) + str(" $"),
                 help="RMSE of the model", delta_color='off')
     col5.metric(label="Features", value=len(features),
                 help="Number of features", delta_color='off')
@@ -111,10 +111,8 @@ if navigation == "Model Analysis":
     st.write("### Model's SHAP values")
     st.write(" ")
     image_path = "assets/shap.png"
-    col0,col1,col2 = st.columns([1,3,1])
+    col0, col1, col2 = st.columns([1, 3, 1])
     col1.image(image_path, caption="Shap Values")
-
-
 
 if navigation == "Prediction":
     st.write("### Prediction based on the XGBoost model")
@@ -133,5 +131,4 @@ if navigation == "Prediction":
 
     prediction = estimate_house_price(features, model, input)
 
-    st.write("### Estimated Price :"+str(round(estimate_house_price(features, model, input), 2))+" $")
-
+    st.write("### Estimated Price :" + str(round(estimate_house_price(features, model, input), 2)) + " $")

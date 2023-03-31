@@ -85,8 +85,8 @@ def load_model(model_name):
 
 
 def estimate_house_price(features, model, data):
-    model.predict(data[features].values.reshape(1, -1))
-    return True
+    price = model.predict(data[features].values.reshape(1, -1))
+    return price
 
 
 def featureTransformation(feature):
